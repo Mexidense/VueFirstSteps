@@ -9,6 +9,8 @@
 <body>
     <div id="app">
             {{ message }}
+        <br>
+        <button v-on:click="changeVisibility">Display/Hide</button>
         <ul v-if="display">
             <li v-for="(show, index) in tvShows" v-bind:key="index">
                 <strong>{{ show.name }}</strong> ({{ show.seasons }})
@@ -30,7 +32,12 @@
                     { name: 'LOST', seasons: 6},
                     { name: 'Battlestar Galactica', seasons: 4},
                 ],
-                display: true
+                display: false
+            },
+            methods: {
+                changeVisibility: function() {
+                    this.display = !this.display
+                }
             }
         })
     </script>
