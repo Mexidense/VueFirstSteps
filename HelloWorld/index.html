@@ -9,12 +9,12 @@
 <body>
     <div id="app">
             {{ message }}
-        <ul v-show="display">
+        <ul v-if="display">
             <li v-for="(show, index) in tvShows" v-bind:key="index">
                 <strong>{{ show.name }}</strong> ({{ show.seasons }})
             </li>
         </ul>
-        <div v-hide="display">
+        <div v-else>
             No data
         </div>
     </div>
