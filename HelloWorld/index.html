@@ -11,27 +11,52 @@
             {{ message }}
         <br>
         <button v-on:click="changeVisibility">Display/Hide</button>
-        <ul v-if="display">
-            <li v-for="(show, index) in tvShows" v-bind:key="index">
-                <strong>{{ show.name }}</strong> ({{ show.seasons }})
-            </li>
-        </ul>
-        <div v-else>
-            No data
-        </div>
+        <tv-show-list></tv-show-list>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.js"></script>
     <script>
-        const app = new Vue({
-            el: '#app',
-            data: {
-                message: 'Hello Vue.js!',
-                tvShows: [
+        Vue.component('tv-show-list', {
+            data: function() {
+                return {
+                    tvShows: [
                     { name: 'Game of Thrones', seasons: 7},
                     { name: 'Breaking Bad', seasons: 5},
                     { name: 'LOST', seasons: 6},
                     { name: 'Battlestar Galactica', seasons: 4},
                 ],
+                }
+            },
+            template: `
+                <div v-if="display">
+                    <ul>
+                        <tv-show 
+                            v-for="(show, index) in tvShows" 
+                            :key="index"
+                            :name="show.name"
+                            :seasons="show.seasons">
+                        </tv-show>
+                    </ul>
+                </div>
+                <div v-else>
+                    No data
+                </div>
+            `
+        })
+        Vue.component('tv-show', {
+            props: {
+                name: String,
+                seasons: Number
+            },
+            template: `
+                <li>
+                    <strong>{{ name }}</strong> ({{ seasons }} Seasons)
+                </li>
+            `
+        })
+        const app = new Vue({
+            el: '#app',
+            data: {
+                message: 'Hello Vue.js!',
                 display: false
             },
             methods: {
