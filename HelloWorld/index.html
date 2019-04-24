@@ -9,11 +9,14 @@
 <body>
     <div id="app">
             {{ message }}
-        <ul>
+        <ul v-show="display">
             <li v-for="(show, index) in tvShows" v-bind:key="index">
                 <strong>{{ show.name }}</strong> ({{ show.seasons }})
             </li>
         </ul>
+        <div v-hide="display">
+            No data
+        </div>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.js"></script>
     <script>
@@ -26,7 +29,8 @@
                     { name: 'Breaking Bad', seasons: 5},
                     { name: 'LOST', seasons: 6},
                     { name: 'Battlestar Galactica', seasons: 4},
-                ]
+                ],
+                display: true
             }
         })
     </script>
